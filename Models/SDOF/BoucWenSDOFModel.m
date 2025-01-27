@@ -125,7 +125,7 @@ classdef BoucWenSDOFModel < handle
             Ofile = sprintf('SDOF_%s_RK4_Response', firstParameter);
             
             % Get the project's root directory
-            projectRoot = fileparts(mfilename('fullpath')); % Assumes this function is in the project root
+            projectRoot = fileparts(fileparts(mfilename('fullpath'))); % Assumes this function is in the project root
             
             % Define the 'Data' folder path within the project
             dataFolder = fullfile(projectRoot, 'Data');
@@ -136,8 +136,8 @@ classdef BoucWenSDOFModel < handle
             end
             
             % Create full file paths for .fig and .png
-            figName = fullfile(dataFolder, sprintf('%s-%s.fig', Ofile, dateString));
-            pngName = fullfile(dataFolder, sprintf('%s-%s.png', Ofile, dateString));
+            figName = fullfile(dataFolder, sprintf('%s.fig', Ofile));
+            pngName = fullfile(dataFolder, sprintf('%s.png', Ofile));
             
             % Save the current figure as .fig file
             savefig(gcf, figName);
