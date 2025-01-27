@@ -12,3 +12,6 @@ whiteNoiseGenerator = WhiteNoiseLoadGeneratorModel(dt, T, F_std);
 
 % Plot the generated white noise excitation
 whiteNoiseGenerator.plotForce();
+
+% Save the figure in the data folder
+whiteNoiseGenerator.saveFigure();

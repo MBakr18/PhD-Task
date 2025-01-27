@@ -172,5 +172,43 @@ classdef LSTMModel < handle
             legend('Runge-Kutta', 'LSTM Prediction');
             grid on;
         end
+
+        function saveFigure(obj)
+            % Get current date in 'yyyymmdd_HHMM' format
+            dateString = datestr(now, 'yyyymmdd_HHMM');
+            
+            % Construct the base file name using the parameters
+            Ofile = sprintf('%s - Task03_RK4_vs_LSTM', dateString);
+            
+            % Get the project's root directory and move one step back
+            currentFile = mfilename('fullpath'); % Full path of the current script/function
+            projectRoot = fileparts(fileparts(fileparts(currentFile))); % Move one step back
+
+            % Define the 'Data' folder path within the project
+            dataFolder = fullfile(projectRoot, 'Data');
+            
+            % Ensure the 'Data' folder exists
+            if ~isfolder(dataFolder)
+                mkdir(dataFolder);
+            end
+            
+            % Define the subfolder path inside the 'Data' folder using Ofile
+            subFolder = fullfile(dataFolder, Ofile);
+            
+            % Ensure the subfolder exists
+            if ~isfolder(subFolder)
+                mkdir(subFolder);
+            end
+            
+            % Create full file paths for .fig and .png
+            figName = fullfile(subFolder, sprintf('%s.fig', Ofile));
+            pngName = fullfile(subFolder, sprintf('%s.png', Ofile));
+            
+            % Save the current figure as .fig file
+            savefig(gcf, figName);
+            
+            % Export the current figure as .png with high resolution
+            exportgraphics(gcf, pngName, 'Resolution', 600);
+        end
     end
 end

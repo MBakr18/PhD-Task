@@ -32,3 +32,6 @@ lstmModel.trainModel();
 
 % Evaluate the LSTM model
 lstmModel.evaluateModel();
+
+% Save the figure in the data folder
+lstmModel.saveFigure();

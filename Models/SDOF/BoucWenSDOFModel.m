@@ -113,5 +113,37 @@ classdef BoucWenSDOFModel < handle
             title('Hidden State Evolution');
             grid on;
         end
+
+        function saveFigure(obj)
+            % Get current date in 'yyyymmdd' format
+            dateString = datestr(now, 'yyyymmdd_HHMM');
+            
+            % Retrieve parameter names from object properties
+            firstParameter = obj.a; % Check property name for typos if errors occur
+            
+            % Construct the base file name using the parameters
+            Ofile = sprintf('SDOF_%s_RK4_Response', firstParameter);
+            
+            % Get the project's root directory
+            projectRoot = fileparts(mfilename('fullpath')); % Assumes this function is in the project root
+            
+            % Define the 'Data' folder path within the project
+            dataFolder = fullfile(projectRoot, 'Data');
+            
+            % Ensure the 'Data' folder exists
+            if ~isfolder(dataFolder)
+                mkdir(dataFolder);
+            end
+            
+            % Create full file paths for .fig and .png
+            figName = fullfile(dataFolder, sprintf('%s-%s.fig', Ofile, dateString));
+            pngName = fullfile(dataFolder, sprintf('%s-%s.png', Ofile, dateString));
+            
+            % Save the current figure as .fig file
+            savefig(gcf, figName);
+            
+            % Export the current figure as .png with high resolution
+            exportgraphics(gcf, pngName, 'Resolution', 600);
+        end
     end
 end
